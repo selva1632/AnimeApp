@@ -1,0 +1,9 @@
+package com.selva.anime.data.remote.model
+
+import com.google.gson.annotations.SerializedName
+
+data class FromDto(
+    @SerializedName("day") val day: Int,
+    @SerializedName("month") val month: Int,
+    @SerializedName("year") val year: Int
+)
