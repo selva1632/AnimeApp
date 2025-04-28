@@ -12,6 +12,7 @@ fun AnimeEntity.toAnimeItem(): AnimeItem {
         imageUrl = imageUrl,
         youtubeUrl = youtubeUrl,
         youtubeId = youtubeId,
+        url = url,
         isSelected = false
     )
 }

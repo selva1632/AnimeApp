@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.selva.anime.databinding.NestedItemViewHolderBinding
 import com.selva.anime.databinding.SlidingImageViewHolderBinding
-import com.selva.anime.domain.model.AnimeSectionItem
+import com.selva.anime.presentation.data.VerticalItem
 import com.selva.anime.ui.home.eventlistener.AnimeClickListener
 
 class VerticalAdapter(
     private val eventListener: AnimeClickListener
 ) : RecyclerView.Adapter<VerticalViewHolder>() {
     private val recycledViewPool = RecyclerView.RecycledViewPool()
-    private val _animeItems = mutableListOf<AnimeSectionItem>()
+    private val _animeItems = mutableListOf<VerticalItem>()
 
     // TODO diff utils
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(animeItems: List<AnimeSectionItem>) {
+    fun submitList(animeItems: List<VerticalItem>) {
         _animeItems.clear()
         _animeItems.addAll(animeItems)
         notifyDataSetChanged()
@@ -65,10 +65,9 @@ class VerticalAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) {
-            TYPE_SLIDER
-        } else {
-            TYPE_NESTED
+        return when(_animeItems[position]) {
+            is VerticalItem.SuggestionItem -> TYPE_NESTED
+            is VerticalItem.SliderItem -> TYPE_SLIDER
         }
     }
 

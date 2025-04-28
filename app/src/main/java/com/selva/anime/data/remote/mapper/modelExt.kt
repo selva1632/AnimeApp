@@ -13,7 +13,8 @@ fun DataDto.toAnimeItem(): AnimeItem {
         rating = rating,
         imageUrl = images?.jpg?.imageUrl,
         youtubeId = trailer?.youtubeId,
-        youtubeUrl = url,
+        youtubeUrl = trailer?.url,
+        url = url,
         isSelected = false
     )
 }
@@ -25,9 +26,10 @@ fun DataDto.toAnimeEntity(): AnimeEntity {
         episode = episodes,
         rating = rating,
         imageUrl = images?.jpg?.imageUrl,
-        youtubeUrl = url,
+        youtubeUrl = trailer?.url,
         youtubeId = trailer?.youtubeId,
-        year = year ?: 0,
+        url = url,
+        year = year,
         isTop = false,
         isRecommended = false
     )
@@ -42,6 +44,7 @@ fun EntryDto.toAnimeItem(): AnimeItem {
         imageUrl = images.jpg?.imageUrl,
         youtubeId = "",
         youtubeUrl = url,
+        url = url,
         isSelected = false
     )
 }

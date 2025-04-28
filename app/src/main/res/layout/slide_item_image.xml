@@ -3,7 +3,7 @@
     <data>
         <variable
             name="bindingItem"
-            type="com.selva.anime.domain.model.AnimeItem" />
+            type="com.selva.anime.presentation.data.HorizontalItem.SliderData" />
     </data>
 
     <RelativeLayout
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:contentDescription="@{bindingItem.title}"
+            android:contentDescription="@{bindingItem.contentDescription}"
             android:scaleType="centerCrop" />
 
         <RelativeLayout

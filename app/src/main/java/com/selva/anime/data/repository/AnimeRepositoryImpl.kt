@@ -7,7 +7,7 @@ import com.selva.anime.data.remote.mapper.toAnimeItem
 import com.selva.anime.data.remote.service.ApiService
 import com.selva.anime.domain.model.AnimeItem
 import com.selva.anime.domain.repository.AnimeRepository
-import com.selva.anime.utils.network.wrapper.Result
+import com.selva.anime.domain.utils.network.wrapper.Result
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton

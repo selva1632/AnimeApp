@@ -8,5 +8,6 @@ data class AnimeItem(
     val imageUrl: String?,
     val youtubeUrl: String?,
     val youtubeId: String?,
-    val isSelected: Boolean
+    val isSelected: Boolean,
+    val url: String?
 )

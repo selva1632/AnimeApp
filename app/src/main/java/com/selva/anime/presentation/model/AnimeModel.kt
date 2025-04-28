@@ -1,24 +1,26 @@
-package com.selva.anime.presentation
+package com.selva.anime.presentation.model
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.selva.anime.domain.model.AnimeSectionItem
 import com.selva.anime.domain.usecase.AnimeUseCase
-import com.selva.anime.presentation.type.SeasonType
-import com.selva.anime.presentation.type.YearType
-import com.selva.anime.utils.network.wrapper.Result
+import com.selva.anime.presentation.constants.type.SeasonType
+import com.selva.anime.presentation.constants.type.YearType
+import com.selva.anime.presentation.data.VerticalItem
+import com.selva.anime.domain.model.toSeasons
+import com.selva.anime.domain.model.toSlider
+import com.selva.anime.domain.utils.network.wrapper.Result
 import javax.inject.Inject
 
 class AnimeModel @Inject constructor(private val useCase: AnimeUseCase) {
-    private val animeCategoryItem = mutableListOf<AnimeSectionItem>()
+    private val animeCategoryItem = mutableListOf<VerticalItem>()
 
     private val _loadingLiveData = MutableLiveData(true)
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveData
 
-    private val _animeCategoryLiveData = MutableLiveData<List<AnimeSectionItem>>(emptyList())
-    val animeCategoryLiveData: LiveData<List<AnimeSectionItem>>
+    private val _animeCategoryLiveData = MutableLiveData<List<VerticalItem>>(emptyList())
+    val animeCategoryLiveData: LiveData<List<VerticalItem>>
         get() = _animeCategoryLiveData
 
     private val _errorMessageLiveDate = MutableLiveData<String?>(null)
@@ -53,12 +55,11 @@ class AnimeModel @Inject constructor(private val useCase: AnimeUseCase) {
     private suspend fun getTopAnime() {
         when (val result = useCase.getTopAnime()) {
             is Result.Success -> {
-                result.data.let {
+                result.data.let { item ->
                     animeCategoryItem.add(
                         0,
-                        AnimeSectionItem(
-                            title = "Trending",
-                            data = it
+                        VerticalItem.SliderItem(
+                            data = item.map { it.toSlider() }
                         )
                     )
                 }
@@ -74,12 +75,12 @@ class AnimeModel @Inject constructor(private val useCase: AnimeUseCase) {
     private suspend fun getRecommendAnime() {
         when (val result = useCase.getRecommendAnime()) {
             is Result.Success -> {
-                result.data.let {
+                result.data.let { item ->
                     animeCategoryItem.add(
                         0,
-                        AnimeSectionItem(
+                        VerticalItem.SuggestionItem(
                             title = "Recommended",
-                            data = it
+                            data = item.map { it.toSeasons() }
                         )
                     )
                 }
@@ -98,11 +99,11 @@ class AnimeModel @Inject constructor(private val useCase: AnimeUseCase) {
     ) {
         when (val result = useCase.getAnimeByYearAndSeason(year, season)) {
             is Result.Success -> {
-                result.data.let {
+                result.data.let { item ->
                     animeCategoryItem.add(
-                        AnimeSectionItem(
+                        VerticalItem.SuggestionItem(
                             title = year.toString(),
-                            data = it
+                            data = item.map { it.toSeasons() }
                         )
                     )
                 }

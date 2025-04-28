@@ -1,6 +1,6 @@
 package com.selva.anime.domain.repository
 
-import com.selva.anime.utils.network.wrapper.Result
+import com.selva.anime.domain.utils.network.wrapper.Result
 import com.selva.anime.domain.model.AnimeItem
 
 interface AnimeRepository {

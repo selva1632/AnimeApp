@@ -7,28 +7,23 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.selva.anime.databinding.ActivityHomeBinding
-import com.selva.anime.domain.model.AnimeItem
 import com.selva.anime.ui.home.adapter.VerticalAdapter
 import com.selva.anime.ui.home.eventlistener.AnimeClickListener
-import com.selva.anime.presentation.viewmodel.AnimeViewmodel
+import com.selva.anime.presentation.HomeViewmodel
+import com.selva.anime.presentation.event.AnimeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeBinding
-    private val viewmodel: AnimeViewmodel by viewModels()
 
-    // TODO click listener to launch detail activity
+    private lateinit var binding: ActivityHomeBinding
+
+    private val viewmodel: HomeViewmodel by viewModels()
+
     private val listener by lazy {
         object : AnimeClickListener {
-            override fun onClick(item: Any) {
-                when (item) {
-                    is AnimeItem -> {
-
-                    }
-
-                    else -> {}
-                }
+            override fun sendEvent(event: AnimeEvent) {
+                viewmodel.handleEvent(event, this@HomeActivity)
             }
         }
     }
@@ -41,8 +36,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
+
         viewmodel.fetchAnime()
         initObservers()
+
         with(binding) {
             vm = viewmodel
             lifecycleOwner = this@HomeActivity

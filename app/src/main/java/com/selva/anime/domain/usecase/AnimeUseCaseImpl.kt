@@ -1,6 +1,6 @@
 package com.selva.anime.domain.usecase
 
-import com.selva.anime.utils.network.wrapper.Result
+import com.selva.anime.domain.utils.network.wrapper.Result
 import com.selva.anime.domain.model.AnimeItem
 import com.selva.anime.domain.repository.AnimeRepository
 import javax.inject.Inject

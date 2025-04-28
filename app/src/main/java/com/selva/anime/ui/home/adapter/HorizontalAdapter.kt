@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.selva.anime.databinding.AnimeCategoryItemViewHolderBinding
-import com.selva.anime.domain.model.AnimeItem
+import com.selva.anime.presentation.data.HorizontalItem
 import com.selva.anime.ui.home.eventlistener.AnimeClickListener
 
 class HorizontalAdapter(
-    private var item: List<AnimeItem>,
+    private var item: List<HorizontalItem.NestedItem>,
     private val eventListener: AnimeClickListener
 ) : RecyclerView.Adapter<HorizontalViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(data: List<AnimeItem>) {
+    fun submitList(data: List<HorizontalItem.NestedItem>) {
         item = data
         notifyDataSetChanged()
     }

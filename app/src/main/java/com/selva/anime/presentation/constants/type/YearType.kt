@@ -1,4 +1,4 @@
-package com.selva.anime.presentation.type
+package com.selva.anime.presentation.constants.type
 
 enum class YearType(val year: Int) {
     YEAR_2024(2024),

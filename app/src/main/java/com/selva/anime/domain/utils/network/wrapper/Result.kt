@@ -1,4 +1,4 @@
-package com.selva.anime.utils.network.wrapper
+package com.selva.anime.domain.utils.network.wrapper
 
 sealed class Result<T> {
     data class Success<T>(val data: T) : Result<T>()

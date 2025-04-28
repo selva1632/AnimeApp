@@ -3,14 +3,14 @@ package com.selva.anime.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.selva.anime.databinding.SlideItemImageBinding
-import com.selva.anime.domain.model.AnimeItem
+import com.selva.anime.presentation.data.HorizontalItem
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 class SliderAdapter : SliderViewAdapter<SlideItemViewHolder>() {
 
-    private val animeItem = mutableListOf<AnimeItem>()
+    private val animeItem = mutableListOf<HorizontalItem.SliderData>()
 
-    fun submitList(items: List<AnimeItem>) {
+    fun submitList(items: List<HorizontalItem.SliderData>) {
         animeItem.clear()
         animeItem.addAll(items)
         notifyDataSetChanged()

@@ -1,7 +1,7 @@
 package com.selva.anime.di
 
 import com.selva.anime.domain.usecase.AnimeUseCase
-import com.selva.anime.presentation.AnimeModel
+import com.selva.anime.presentation.model.AnimeModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

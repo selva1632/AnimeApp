@@ -6,7 +6,7 @@
     <data>
         <variable
             name="bindingItem"
-            type="com.selva.anime.domain.model.AnimeSectionItem" />
+            type="com.selva.anime.presentation.data.VerticalItem.SuggestionItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            bind:AnimeItems="@{bindingItem.data}"
+            bind:NestedItem="@{bindingItem.data}"
             android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

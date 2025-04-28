@@ -7,7 +7,7 @@
     <data>
         <variable
             name="vm"
-            type="com.selva.anime.presentation.viewmodel.AnimeViewmodel" />
+            type="com.selva.anime.presentation.HomeViewmodel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            bind:AnimeSelectionItems="@{vm.animeCategoryLiveData}"
+            bind:VerticalItem="@{vm.animeCategoryLiveData}"
             android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

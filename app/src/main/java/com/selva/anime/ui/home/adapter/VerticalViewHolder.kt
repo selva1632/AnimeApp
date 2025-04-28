@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.selva.anime.databinding.NestedItemViewHolderBinding
 import com.selva.anime.databinding.SlidingImageViewHolderBinding
-import com.selva.anime.domain.model.AnimeSectionItem
+import com.selva.anime.presentation.data.VerticalItem
 import com.selva.anime.ui.home.eventlistener.AnimeClickListener
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
@@ -17,7 +17,7 @@ sealed class VerticalViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     abstract fun bind(
-        item: AnimeSectionItem,
+        item: VerticalItem,
         listener: AnimeClickListener,
         recycledViewPool: RecycledViewPool
     )
@@ -40,12 +40,12 @@ sealed class VerticalViewHolder(
         }
 
         override fun bind(
-            item: AnimeSectionItem,
+            item: VerticalItem,
             listener: AnimeClickListener,
             recycledViewPool: RecycledViewPool
         ) {
             with(binding) {
-                bindingItem = item
+                bindingItem = item as VerticalItem.SuggestionItem
             }
         }
     }
@@ -71,10 +71,11 @@ sealed class VerticalViewHolder(
         }
 
         override fun bind(
-            item: AnimeSectionItem,
+            item: VerticalItem,
             listener: AnimeClickListener,
             recycledViewPool: RecycledViewPool
         ) {
+            item as VerticalItem.SliderItem
             adapter.submitList(item.data)
 
             if (item.data.isEmpty()) {

@@ -11,6 +11,7 @@ data class AnimeEntity(
     @ColumnInfo(name = "anime_name") val animeName: String,
     @ColumnInfo(name = "episode") val episode: Int = 0,
     @ColumnInfo(name = "rating") val rating: String,
+    @ColumnInfo(name = "url") val url: String? = null,
     @ColumnInfo(name = "image_url") val imageUrl: String? = null,
     @ColumnInfo(name = "youtube_url") val youtubeUrl: String? = null,
     @ColumnInfo(name = "youtube_id") val youtubeId: String? = null,

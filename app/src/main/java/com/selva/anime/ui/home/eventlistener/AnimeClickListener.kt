@@ -1,5 +1,7 @@
 package com.selva.anime.ui.home.eventlistener
 
+import com.selva.anime.presentation.event.AnimeEvent
+
 interface AnimeClickListener {
-    fun onClick(item: Any)
+    fun sendEvent(event: AnimeEvent)
 }
