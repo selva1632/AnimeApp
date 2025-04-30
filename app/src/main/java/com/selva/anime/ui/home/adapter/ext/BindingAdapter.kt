@@ -1,4 +1,4 @@
-package com.selva.anime.ui.home.ext
+package com.selva.anime.ui.home.adapter.ext
 
 import android.view.View
 import android.widget.ProgressBar
@@ -6,14 +6,15 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.selva.anime.presentation.data.HorizontalItem
 import com.selva.anime.presentation.data.VerticalItem
+import com.selva.anime.ui.home.contract.UiState
 import com.selva.anime.ui.home.adapter.HorizontalAdapter
 import com.selva.anime.ui.home.adapter.VerticalAdapter
 
 @BindingAdapter("bind:VerticalItem")
-fun bindVerticalItem(recyclerView: RecyclerView, items: List<VerticalItem>?) {
+fun bindVerticalItem(recyclerView: RecyclerView, state: UiState<List<VerticalItem>>?) {
     val adapter = recyclerView.adapter as VerticalAdapter
-    items?.let {
-        adapter.submitList(it)
+    if (state is UiState.Success) {
+        adapter.submitList(state.data)
     }
 }
 
@@ -26,6 +27,6 @@ fun bindNestedItem(recyclerView: RecyclerView, items: List<HorizontalItem.Nested
 }
 
 @BindingAdapter("app:visibility")
-fun setVisibility(progressBar: ProgressBar, isLoading: Boolean?) {
-    progressBar.visibility = if (isLoading == true) View.VISIBLE else View.GONE
+fun setVisibility(progressBar: ProgressBar, state: UiState<List<VerticalItem>>?) {
+    progressBar.visibility = if (state is UiState.Loading) View.VISIBLE else View.GONE
 }

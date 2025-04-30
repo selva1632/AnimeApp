@@ -4,13 +4,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.selva.anime.databinding.AnimeCategoryItemViewHolderBinding
 import com.selva.anime.presentation.data.HorizontalItem
-import com.selva.anime.presentation.event.AnimeEvent
-import com.selva.anime.ui.home.eventlistener.AnimeClickListener
+import com.selva.anime.ui.home.contract.UiEvent
 
 class HorizontalViewHolder(
     val binding: AnimeCategoryItemViewHolderBinding,
+    val handleEvent: (UiEvent) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: HorizontalItem.NestedItem, eventListener: AnimeClickListener) {
+
+    fun bind(item: HorizontalItem.NestedItem) {
         with(binding) {
             bindingItem = item
 
@@ -20,9 +21,7 @@ class HorizontalViewHolder(
                 .into(animeImageView)
 
             animeImageView.setOnClickListener {
-                item.id?.let { it1 ->
-                    eventListener.sendEvent(AnimeEvent.SelectAnime(it1))
-                }
+                handleEvent(UiEvent.SelectAnime(item.id))
             }
         }
     }

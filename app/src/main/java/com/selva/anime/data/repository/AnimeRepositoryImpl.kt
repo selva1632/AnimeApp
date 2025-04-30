@@ -17,14 +17,17 @@ class AnimeRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val animeDao: AnimeDao,
 ) : AnimeRepository {
+
     override suspend fun getTopAnime(): Result<List<AnimeItem>> {
         val localTopAnimeList = animeDao.getTopAnime()
+
         if (localTopAnimeList.isNotEmpty()) {
             return Result.Success(localTopAnimeList.map { it.toAnimeItem() })
         }
 
         delay(300L)
         val response = apiService.getTopAnime()
+
         return if (response.isSuccessful) {
             response.body()?.let { animeData ->
                 val animeEntities = animeData.data.map {
@@ -40,12 +43,14 @@ class AnimeRepositoryImpl @Inject constructor(
 
     override suspend fun getRecommendAnime(): Result<List<AnimeItem>> {
         val localRecommendAnime = animeDao.getRecommendedAnime()
+
         if (localRecommendAnime.isNotEmpty()) {
             return Result.Success(localRecommendAnime.map { it.toAnimeItem() })
         }
 
         delay(300L)
         val response = apiService.getRecommendedAnime()
+
         return if (response.isSuccessful) {
             response.body()?.let { body ->
                 val animeItems = body.data
@@ -64,6 +69,7 @@ class AnimeRepositoryImpl @Inject constructor(
 
     override suspend fun getAnimeById(id: Int): Result<AnimeItem> {
         val localAnimeById = animeDao.getAnimeById(id)
+
         localAnimeById?.let {
             return Result.Success(localAnimeById.toAnimeItem())
         } ?: run {
@@ -84,12 +90,14 @@ class AnimeRepositoryImpl @Inject constructor(
         season: String
     ): Result<List<AnimeItem>> {
         val localAnimeByYear = animeDao.getAnimeByYear(year)
+
         if (localAnimeByYear.isNotEmpty()) {
             return Result.Success(localAnimeByYear.map { it.toAnimeItem() })
         }
 
         delay(500L)
         val response = apiService.getSeasonAnime(year, season)
+
         return if (response.isSuccessful) {
             response.body()?.let { data ->
                 val anime = data.data

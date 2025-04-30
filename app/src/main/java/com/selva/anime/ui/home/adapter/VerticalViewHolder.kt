@@ -7,27 +7,26 @@ import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.selva.anime.databinding.NestedItemViewHolderBinding
 import com.selva.anime.databinding.SlidingImageViewHolderBinding
 import com.selva.anime.presentation.data.VerticalItem
-import com.selva.anime.ui.home.eventlistener.AnimeClickListener
+import com.selva.anime.ui.home.contract.UiEvent
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 
 sealed class VerticalViewHolder(
     open val binding: ViewDataBinding,
-    open val eventListener: AnimeClickListener
+    open val handleEvent: (UiEvent) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     abstract fun bind(
         item: VerticalItem,
-        listener: AnimeClickListener,
         recycledViewPool: RecycledViewPool
     )
 
     class NestedViewHolder(
         override val binding: NestedItemViewHolderBinding,
-        override val eventListener: AnimeClickListener
-    ) : VerticalViewHolder(binding, eventListener) {
+        override val handleEvent: (UiEvent) -> Unit
+    ) : VerticalViewHolder(binding, handleEvent) {
 
-        private val horizontalAdapter by lazy { HorizontalAdapter(emptyList(), eventListener) }
+        private val horizontalAdapter by lazy { HorizontalAdapter(emptyList(), handleEvent) }
 
         init {
             with(binding.horizontalRecyclerView) {
@@ -41,7 +40,6 @@ sealed class VerticalViewHolder(
 
         override fun bind(
             item: VerticalItem,
-            listener: AnimeClickListener,
             recycledViewPool: RecycledViewPool
         ) {
             with(binding) {
@@ -52,8 +50,8 @@ sealed class VerticalViewHolder(
 
     class SlidingViewHolder(
         override val binding: SlidingImageViewHolderBinding,
-        override val eventListener: AnimeClickListener
-    ) : VerticalViewHolder(binding, eventListener) {
+        override val handleEvent: (UiEvent) -> Unit
+    ) : VerticalViewHolder(binding, handleEvent) {
 
         private val adapter by lazy { SliderAdapter() }
 
@@ -72,7 +70,6 @@ sealed class VerticalViewHolder(
 
         override fun bind(
             item: VerticalItem,
-            listener: AnimeClickListener,
             recycledViewPool: RecycledViewPool
         ) {
             item as VerticalItem.SliderItem
