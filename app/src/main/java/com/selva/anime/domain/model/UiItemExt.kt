@@ -12,12 +12,12 @@ fun AnimeItem.toSlider(): HorizontalItem.SliderData {
 
 fun AnimeItem.toSeasons(): HorizontalItem.NestedItem {
     return HorizontalItem.NestedItem(
-        id = id ?: 0,
         contentDescription = title,
+        id = id ?: 0,
         imageUrl = imageUrl,
+        url = url,
         youtubeUrl = youtubeUrl,
         youtubeId = youtubeId,
-        url = url
     )
 }
 

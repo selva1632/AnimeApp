@@ -18,55 +18,6 @@ class AnimeRepositoryImpl @Inject constructor(
     private val animeDao: AnimeDao,
 ) : AnimeRepository {
 
-    override suspend fun getTopAnime(): Result<List<AnimeItem>> {
-        val localTopAnimeList = animeDao.getTopAnime()
-
-        if (localTopAnimeList.isNotEmpty()) {
-            return Result.Success(localTopAnimeList.map { it.toAnimeItem() })
-        }
-
-        delay(300L)
-        val response = apiService.getTopAnime()
-
-        return if (response.isSuccessful) {
-            response.body()?.let { animeData ->
-                val animeEntities = animeData.data.map {
-                    it.toAnimeEntity().copy(isTop = true)
-                }
-                animeDao.insertAnimeList(animeEntities)
-                Result.Success(animeData.data.map { it.toAnimeItem() })
-            } ?: Result.Error("Null body")
-        } else {
-            Result.Error(response.message())
-        }
-    }
-
-    override suspend fun getRecommendAnime(): Result<List<AnimeItem>> {
-        val localRecommendAnime = animeDao.getRecommendedAnime()
-
-        if (localRecommendAnime.isNotEmpty()) {
-            return Result.Success(localRecommendAnime.map { it.toAnimeItem() })
-        }
-
-        delay(300L)
-        val response = apiService.getRecommendedAnime()
-
-        return if (response.isSuccessful) {
-            response.body()?.let { body ->
-                val animeItems = body.data
-                    .flatMap { it.entry }
-                    .take(20)
-
-                animeDao.insertAnimeList(animeItems.map {
-                    it.toAnimeEntity().copy(isRecommended = true)
-                })
-                Result.Success(animeItems.map { it.toAnimeItem() })
-            } ?: Result.Error("Null Body")
-        } else {
-            Result.Error(response.message())
-        }
-    }
-
     override suspend fun getAnimeById(id: Int): Result<AnimeItem> {
         val localAnimeById = animeDao.getAnimeById(id)
 
@@ -104,6 +55,55 @@ class AnimeRepositoryImpl @Inject constructor(
                 animeDao.insertAnimeList(anime.map { it.toAnimeEntity() })
                 Result.Success(anime.map { it.toAnimeItem() })
             } ?: Result.Error("Null Empty")
+        } else {
+            Result.Error(response.message())
+        }
+    }
+
+    override suspend fun getRecommendAnime(): Result<List<AnimeItem>> {
+        val localRecommendAnime = animeDao.getRecommendedAnime()
+
+        if (localRecommendAnime.isNotEmpty()) {
+            return Result.Success(localRecommendAnime.map { it.toAnimeItem() })
+        }
+
+        delay(300L)
+        val response = apiService.getRecommendedAnime()
+
+        return if (response.isSuccessful) {
+            response.body()?.let { body ->
+                val animeItems = body.data
+                    .flatMap { it.entry }
+                    .take(20)
+
+                animeDao.insertAnimeList(animeItems.map {
+                    it.toAnimeEntity().copy(isRecommended = true)
+                })
+                Result.Success(animeItems.map { it.toAnimeItem() })
+            } ?: Result.Error("Null Body")
+        } else {
+            Result.Error(response.message())
+        }
+    }
+
+    override suspend fun getTopAnime(): Result<List<AnimeItem>> {
+        val localTopAnimeList = animeDao.getTopAnime()
+
+        if (localTopAnimeList.isNotEmpty()) {
+            return Result.Success(localTopAnimeList.map { it.toAnimeItem() })
+        }
+
+        delay(300L)
+        val response = apiService.getTopAnime()
+
+        return if (response.isSuccessful) {
+            response.body()?.let { animeData ->
+                val animeEntities = animeData.data.map {
+                    it.toAnimeEntity().copy(isTop = true)
+                }
+                animeDao.insertAnimeList(animeEntities)
+                Result.Success(animeData.data.map { it.toAnimeItem() })
+            } ?: Result.Error("Null body")
         } else {
             Result.Error(response.message())
         }

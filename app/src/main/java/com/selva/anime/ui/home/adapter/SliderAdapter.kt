@@ -16,10 +16,6 @@ class SliderAdapter : SliderViewAdapter<SlideItemViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun getCount(): Int {
-        return animeItem.size
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup?): SlideItemViewHolder {
         return SlideItemViewHolder(
             SlideItemImageBinding.inflate(LayoutInflater.from(parent?.context), null, false)
@@ -31,6 +27,10 @@ class SliderAdapter : SliderViewAdapter<SlideItemViewHolder>() {
             it.bind(animeItem[position])
             it.binding.executePendingBindings()
         }
+    }
+
+    override fun getCount(): Int {
+        return animeItem.size
     }
 
 }

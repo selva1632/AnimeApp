@@ -7,11 +7,11 @@ sealed class HorizontalItem {
     )
 
     data class NestedItem(
-        val id: Int,
         val contentDescription: String?,
+        val id: Int,
         val imageUrl: String?,
+        val url: String?,
         val youtubeId: String?,
-        val youtubeUrl: String?,
-        val url: String?
+        val youtubeUrl: String?
     )
 }

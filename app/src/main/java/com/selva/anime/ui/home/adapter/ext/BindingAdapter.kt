@@ -10,12 +10,9 @@ import com.selva.anime.ui.home.contract.UiState
 import com.selva.anime.ui.home.adapter.HorizontalAdapter
 import com.selva.anime.ui.home.adapter.VerticalAdapter
 
-@BindingAdapter("bind:VerticalItem")
-fun bindVerticalItem(recyclerView: RecyclerView, state: UiState<List<VerticalItem>>?) {
-    val adapter = recyclerView.adapter as VerticalAdapter
-    if (state is UiState.Success) {
-        adapter.submitList(state.data)
-    }
+@BindingAdapter("app:visibility")
+fun setVisibility(progressBar: ProgressBar, state: UiState<List<VerticalItem>>?) {
+    progressBar.visibility = if (state is UiState.Loading) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("bind:NestedItem")
@@ -26,7 +23,10 @@ fun bindNestedItem(recyclerView: RecyclerView, items: List<HorizontalItem.Nested
     }
 }
 
-@BindingAdapter("app:visibility")
-fun setVisibility(progressBar: ProgressBar, state: UiState<List<VerticalItem>>?) {
-    progressBar.visibility = if (state is UiState.Loading) View.VISIBLE else View.GONE
+@BindingAdapter("bind:VerticalItem")
+fun bindVerticalItem(recyclerView: RecyclerView, state: UiState<List<VerticalItem>>?) {
+    val adapter = recyclerView.adapter as VerticalAdapter
+    if (state is UiState.Success) {
+        adapter.submitList(state.data)
+    }
 }

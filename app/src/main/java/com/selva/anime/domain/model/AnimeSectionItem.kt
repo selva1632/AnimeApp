@@ -1,6 +1,6 @@
 package com.selva.anime.domain.model
 
 data class AnimeSectionItem(
-    val title: String,
-    val data: List<AnimeItem>
+    val data: List<AnimeItem>,
+    val title: String
 )

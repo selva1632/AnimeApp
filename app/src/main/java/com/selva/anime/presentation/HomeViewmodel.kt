@@ -25,17 +25,17 @@ class HomeViewmodel @Inject constructor(private val model: AnimeModel) : ViewMod
     val uiStateLiveData: LiveData<UiState<List<VerticalItem>>>
         get() = model.uiStateLiveData
 
-    fun fetchAnime() {
-        viewModelScope.launch(Dispatchers.IO) {
-            model.loadData()
-        }
-    }
-
     fun handleEvent(event: UiEvent) {
         when (event) {
             is UiEvent.SelectAnime -> {
                 _eventLiveDate.value = event
             }
+        }
+    }
+
+    fun fetchAnime() {
+        viewModelScope.launch(Dispatchers.IO) {
+            model.loadData()
         }
     }
 }

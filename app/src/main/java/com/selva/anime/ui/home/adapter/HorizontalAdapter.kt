@@ -24,9 +24,14 @@ class HorizontalAdapter(
             areItemTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
             areContentTheSame = { oldItem, newItem -> oldItem == newItem }
         )
+
         val diffResult = DiffUtil.calculateDiff(diffUtilCallback)
         item = data
         diffResult.dispatchUpdatesTo(this@HorizontalAdapter)
+    }
+
+    override fun getItemCount(): Int {
+        return item.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalViewHolder {
@@ -38,10 +43,6 @@ class HorizontalAdapter(
             ),
             handleEvent
         )
-    }
-
-    override fun getItemCount(): Int {
-        return item.size
     }
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {

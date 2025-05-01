@@ -21,7 +21,7 @@ class VerticalAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(animeItems: List<VerticalItem>) {
-        val diffUtilCallback = GenericAnimeDiffUtil<VerticalItem>(
+        val diffUtilCallback = GenericAnimeDiffUtil(
             oldList = _animeItems,
             newList = animeItems,
             areItemTheSame = { oldItem, newItem ->
@@ -43,8 +43,8 @@ class VerticalAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
         return when (viewType) {
-            TYPE_SLIDER -> VerticalViewHolder.SlidingViewHolder(
-                SlidingImageViewHolderBinding.inflate(
+            TYPE_NESTED -> VerticalViewHolder.NestedViewHolder(
+                NestedItemViewHolderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     null,
                     false
@@ -52,8 +52,8 @@ class VerticalAdapter(
                 handleEvent
             )
 
-            TYPE_NESTED -> VerticalViewHolder.NestedViewHolder(
-                NestedItemViewHolderBinding.inflate(
+            TYPE_SLIDER -> VerticalViewHolder.SlidingViewHolder(
+                SlidingImageViewHolderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     null,
                     false

@@ -6,8 +6,8 @@ sealed class VerticalItem {
     ) : VerticalItem()
 
     data class SuggestionItem(
+        val data: List<HorizontalItem.NestedItem>,
         val id: Int,
         val title: String,
-        val data: List<HorizontalItem.NestedItem>
     ) : VerticalItem()
 }

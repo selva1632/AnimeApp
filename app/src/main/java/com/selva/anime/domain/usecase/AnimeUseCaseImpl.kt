@@ -7,14 +7,6 @@ import javax.inject.Inject
 
 class AnimeUseCaseImpl @Inject constructor(private val repository: AnimeRepository) : AnimeUseCase {
 
-    override suspend fun getTopAnime(): Result<List<AnimeItem>> {
-        return repository.getTopAnime()
-    }
-
-    override suspend fun getRecommendAnime(): Result<List<AnimeItem>> {
-        return repository.getRecommendAnime()
-    }
-
     override suspend fun getAnimeById(id: Int): Result<AnimeItem> {
         return repository.getAnimeById(id)
     }
@@ -24,5 +16,13 @@ class AnimeUseCaseImpl @Inject constructor(private val repository: AnimeReposito
         season: String
     ): Result<List<AnimeItem>> {
         return repository.getAnimeByYearAndSeason(year, season)
+    }
+
+    override suspend fun getRecommendAnime(): Result<List<AnimeItem>> {
+        return repository.getRecommendAnime()
+    }
+
+    override suspend fun getTopAnime(): Result<List<AnimeItem>> {
+        return repository.getTopAnime()
     }
 }

@@ -7,15 +7,15 @@ import com.selva.anime.domain.model.AnimeItem
 
 fun DataDto.toAnimeItem(): AnimeItem {
     return AnimeItem(
-        id = malId,
-        title = title,
         episode = episodes,
-        rating = rating,
+        id = malId,
         imageUrl = images?.jpg?.imageUrl,
-        youtubeId = trailer?.youtubeId,
-        youtubeUrl = trailer?.url,
+        isSelected = false,
+        rating = rating,
+        title = title,
         url = url,
-        isSelected = false
+        youtubeId = trailer?.youtubeId,
+        youtubeUrl = trailer?.url
     )
 }
 
@@ -24,28 +24,28 @@ fun DataDto.toAnimeEntity(): AnimeEntity {
         animeId = malId,
         animeName = title,
         episode = episodes,
-        rating = rating,
         imageUrl = images?.jpg?.imageUrl,
+        isRecommended = false,
+        isTop = false,
+        url = url,
+        rating = rating,
+        year = year,
         youtubeUrl = trailer?.url,
         youtubeId = trailer?.youtubeId,
-        url = url,
-        year = year,
-        isTop = false,
-        isRecommended = false
     )
 }
 
 fun EntryDto.toAnimeItem(): AnimeItem {
     return AnimeItem(
-        id = malId,
-        title = title,
         episode = 0,
-        rating = "0",
+        id = malId,
         imageUrl = images.jpg?.imageUrl,
-        youtubeId = "",
-        youtubeUrl = url,
+        isSelected = false,
+        rating = "0",
+        title = title,
         url = url,
-        isSelected = false
+        youtubeId = "",
+        youtubeUrl = url
     )
 }
 
@@ -54,12 +54,12 @@ fun EntryDto.toAnimeEntity(): AnimeEntity {
         animeId = malId,
         animeName = title,
         episode = 0,
-        rating = "0",
         imageUrl = images.jpg?.imageUrl,
-        youtubeId = url,
-        youtubeUrl = "",
-        year = 0,
+        isRecommended = false,
         isTop = false,
-        isRecommended = false
+        rating = "0",
+        year = 0,
+        youtubeId = url,
+        youtubeUrl = ""
     )
 }

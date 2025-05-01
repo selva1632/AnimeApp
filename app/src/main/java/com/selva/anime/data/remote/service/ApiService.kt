@@ -8,11 +8,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("top/anime")
-    suspend fun getTopAnime(
-        @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 20
-    ): Response<AnimeResponse>
+
+    @GET("/anime}")
+    suspend fun getAnimeById(@Query("anime_id") id: Int): Response<AnimeResponse>
 
     @GET("recommendations/anime")
     suspend fun getRecommendedAnime(
@@ -20,13 +18,16 @@ interface ApiService {
         @Query("limit") limit: Int = 20
     ): Response<PresetResponse>
 
-    @GET("/anime}")
-    suspend fun getAnimeById(@Query("anime_id") id: Int): Response<AnimeResponse>
-
     @GET("seasons/{year}/{season}")
     suspend fun getSeasonAnime(
         @Path("year") year: Int,
         @Path("season") season: String,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 20
+    ): Response<AnimeResponse>
+
+    @GET("top/anime")
+    suspend fun getTopAnime(
         @Query("page") page: Int = 1,
         @Query("limit") limit: Int = 20
     ): Response<AnimeResponse>
